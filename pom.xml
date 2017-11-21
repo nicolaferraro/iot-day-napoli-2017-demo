@@ -7,10 +7,21 @@
     <groupId>iot.day</groupId>
     <artifactId>iot-day-napoli-2017-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <fabric8.skipResourceValidation>true</fabric8.skipResourceValidation>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <modules>
         <module>iot-simulator</module>
+        <module>iot-analysis</module>
     </modules>
-    <packaging>pom</packaging>
 
     
 </project>
