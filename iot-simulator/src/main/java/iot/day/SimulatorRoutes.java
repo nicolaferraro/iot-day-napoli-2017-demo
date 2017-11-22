@@ -11,7 +11,7 @@ public class SimulatorRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("timer:clock?period=30000")
+        from("timer:clock?period=10000")
                 .bean("temperatureDevicesSimulator", "generateMeasurements")
                 .split().body()
                 .setHeader(KafkaConstants.KEY).simple("body.deviceId", String.class)
@@ -21,8 +21,11 @@ public class SimulatorRoutes extends RouteBuilder {
 
         from("kafka:temperature.avg")
                 .unmarshal().json(JsonLibrary.Jackson, Temperature.class)
-                .log("Received: ${body}");
-
+                .log("Received: ${body}")
+                .transform(simple("${body.temperature} at timestamp ${body.timestamp}"))
+                .setHeader("group", constant("avg"))
+                .bean("analysisLog", "add");
+//
 
 
     }

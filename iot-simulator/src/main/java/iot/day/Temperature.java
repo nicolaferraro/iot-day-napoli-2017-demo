@@ -6,12 +6,15 @@ public class Temperature {
 
     private double temperature;
 
+    private long timestamp;
+
     public Temperature() {
     }
 
-    public Temperature(String deviceId, double temperature) {
+    public Temperature(String deviceId, double temperature, long timestamp) {
         this.deviceId = deviceId;
         this.temperature = temperature;
+        this.timestamp = timestamp;
     }
 
     public String getDeviceId() {
@@ -30,11 +33,20 @@ public class Temperature {
         this.temperature = temperature;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "Temperature{" +
                 "deviceId='" + deviceId + '\'' +
                 ", temperature=" + temperature +
+                ", timestamp=" + timestamp +
                 '}';
     }
 

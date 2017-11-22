@@ -4,7 +4,7 @@ import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, Loca
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
-object Hello {
+object Streaming {
 
   def main(args: Array[String]): Unit = {
 
@@ -27,7 +27,7 @@ object Hello {
     source.window(Seconds(60))
       .foreachRDD(rdd => {
         val avg = rdd.map(t => t.temperature).mean()
-        KafkaSupport.send("temperature.avg", "avg", Temperature("avg", avg).toJson)
+        KafkaSupport.send("temperature.avg", "avg", Temperature("avg", avg, System.currentTimeMillis()).toJson)
       })
 
     ssc.start()
