@@ -4,6 +4,9 @@ import kafka.admin.AdminUtils
 import kafka.utils.ZkUtils
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
+import org.apache.spark.streaming.StreamingContext
+import org.apache.spark.streaming.dstream.DStream
+import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
 
 import scala.collection.JavaConversions._
 import scala.util.Random
@@ -43,6 +46,14 @@ object KafkaSupport {
         e.printStackTrace()
         // ignore
     }
+  }
+
+  def createJsonStream(topic: String)(implicit ssc: StreamingContext): DStream[String] = {
+    KafkaUtils.createDirectStream[String, String](
+      ssc,
+      LocationStrategies.PreferConsistent,
+      ConsumerStrategies.Subscribe[String, String](Seq(topic), KafkaSupport.kafkaParams)
+    ).map(record => record.value())
   }
 
   def send(topic: String, key: String, value: String): Unit = producer.send(new ProducerRecord[String, String](topic, key, value))

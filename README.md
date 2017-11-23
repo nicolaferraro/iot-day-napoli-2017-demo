@@ -54,9 +54,9 @@ mvn clean install -N
 Jump into the simulator directory and deploy it:
 
 ```
-cd iot-simulator
+pushd iot-simulator
 mvn clean fabric8:deploy
-cd ..
+popd
 ```
 
 ### 5. Create a Spark cluster
@@ -72,7 +72,24 @@ oshinko create iot-cluster
 Jump into the analysis directory and deploy the spark driver:
 
 ```
-cd iot-analysis
+pushd iot-analysis
 mvn clean fabric8:deploy
+popd
 ```
 
+Now you can open the IoT simulator console and play. It should be available at: http://iot-simulator-myproject.127.0.0.1.nip.io/
+
+### 7. (Optional) Try structured streaming
+
+The `iot.day.StructuredStreaming` class is an example of how to use structured streaming to 
+compute the average temperature measured by each device.
+
+To deploy it (as alternative to the standard analysis algorithm):
+
+```
+pushd iot-analysis
+mvn clean fabric8:deploy -Dmain.class=iot.day.StructuredStreaming
+popd
+```
+
+It prints the result in the console (not visible in the ui).

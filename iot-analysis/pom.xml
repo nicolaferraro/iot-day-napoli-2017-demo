@@ -142,7 +142,7 @@
                         <config>
                             <java-exec>
                                 <!-- The radanalytics java-spark image -->
-                                <from>radanalyticsio/radanalytics-java-spark:stable</from>
+                                <from>radanalyticsio/radanalytics-java-spark:v0.4.1</from>
                                 <mainClass>${main.class}</mainClass>
                             </java-exec>
                         </config>

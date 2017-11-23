@@ -21,12 +21,21 @@ public class SimulatorRoutes extends RouteBuilder {
 
         from("kafka:temperature.avg")
                 .unmarshal().json(JsonLibrary.Jackson, Temperature.class)
-                .log("Received: ${body}")
-                .transform(simple("${body.temperature} at timestamp ${body.timestamp}"))
+                .log("Received from temperature.avg topic: ${body}")
+                .transform(simple("${body.temperature}"))
                 .setHeader("group", constant("avg"))
                 .bean("analysisLog", "add");
-//
 
+        from("kafka:temperature.favg")
+                .unmarshal().json(JsonLibrary.Jackson, Temperature.class)
+                .log("Received from temperature.favg topic: ${body}")
+                .transform(simple("${body.temperature}"))
+                .setHeader("group", constant("favg"))
+                .bean("analysisLog", "add");
 
+        from("kafka:action")
+                .log("Received from action topic: ${body}")
+                .setHeader("group", constant("action"))
+                .bean("analysisLog", "add");
     }
 }

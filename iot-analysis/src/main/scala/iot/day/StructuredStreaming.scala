@@ -59,6 +59,9 @@ object StructuredStreaming {
       .writeStream
       .outputMode("complete")
       .format("console")
+//      .format("kafka")
+//      .option("kafka.bootstrap.servers", "kafka:9092")
+//      .option("topic", "temperature.savg")
       .start()
 
     query.awaitTermination()

@@ -90,9 +90,26 @@
         </div>
 
         <div class="col-sm-6">
-            <label for="avg">Average Temperature</label>
+            <label for="avg" data-ng-show="avg.length > 0">Average Temperature</label>
             <ul id="avg" style="background-color: #000; color: #FFF">
-                <li style="list-style: none; padding-left: 0; font-weight: bold;" data-ng-repeat="line in avg">{{line}}</li>
+                <li style="list-style: none; padding-left: 0" data-ng-repeat="line in avg">
+                    <span style="font-weight: bold" data-ng-show="$index == avg.length - 1">{{line}}</span>
+                    <span style="font-style: italic" data-ng-hide="$index == avg.length - 1">{{line}}</span>
+                </li>
+            </ul>
+            <label for="favg" data-ng-show="favg.length > 0">Fixed Average Temperature</label>
+            <ul id="favg" style="background-color: #000; color: #FFF">
+                <li style="list-style: none; padding-left: 0" data-ng-repeat="line in favg">
+                    <span style="font-weight: bold" data-ng-show="$index == favg.length - 1">{{line}}</span>
+                    <span style="font-style: italic" data-ng-hide="$index == favg.length - 1">{{line}}</span>
+                </li>
+            </ul>
+            <label for="action" data-ng-show="action.length > 0">Do Action</label>
+            <ul id="action" style="background-color: #000; color: #FFF">
+                <li style="list-style: none; padding-left: 0" data-ng-repeat="line in action">
+                    <span style="font-weight: bold" data-ng-show="$index == action.length - 1">{{line}}</span>
+                    <span style="font-style: italic" data-ng-hide="$index == action.length - 1">{{line}}</span>
+                </li>
             </ul>
         </div>
 

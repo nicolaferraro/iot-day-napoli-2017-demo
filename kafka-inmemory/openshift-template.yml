@@ -157,7 +157,7 @@ objects:
         containers:
         - name: kafka
           image: ${IMAGE_REPO_NAME}/${KAFKA_IMAGE_NAME}:${KAFKA_IMAGE_TAG}
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
           - name: kafka
             containerPort: 9092
@@ -212,7 +212,7 @@ objects:
         containers:
         - name: zookeeper
           image: ${IMAGE_REPO_NAME}/${ZOOKEEPER_IMAGE_NAME}:${ZOOKEEPER_IMAGE_TAG}
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
           - name: clientport
             containerPort: 2181
