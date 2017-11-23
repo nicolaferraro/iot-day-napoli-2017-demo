@@ -38,10 +38,18 @@ You can install it using the following commands:
 
 ```
 oc create -f ./kafka-inmemory/openshift-template.yml
-oc new-app barnabas
+oc new-app barnabas -p ZOOKEEPER_IMAGE_TAG=0.1.0-rc1 -p KAFKA_IMAGE_TAG=0.1.0-rc1
 ```
 
-### 3. Build the root module
+### 3. Create a Spark cluster
+
+You need to create a Spark cluster using the Oshinko cli:
+
+```
+oshinko create iot-cluster
+```
+
+### 4. Build the root module
 
 Build the root module of this project using:
 
@@ -49,7 +57,7 @@ Build the root module of this project using:
 mvn clean install -N
 ```
 
-### 4. Deploy the simulator
+### 5. Deploy the simulator
 
 Jump into the simulator directory and deploy it:
 
@@ -57,14 +65,6 @@ Jump into the simulator directory and deploy it:
 pushd iot-simulator
 mvn clean fabric8:deploy
 popd
-```
-
-### 5. Create a Spark cluster
-
-You need to create a Spark cluster using the Oshinko cli:
-
-```
-oshinko create iot-cluster
 ```
 
 ### 6. Deploy the analysis module
